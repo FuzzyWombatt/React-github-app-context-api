@@ -34,7 +34,7 @@ const User = ({user, loading, getUser, getRepos, repos, match}) => {
     
     return(       
            <Fragment>
-               <div className='h-screen w-11/12 self-center'>
+               <div className='w-11/12 self-center'>
                     <div className='flex mb-2'>
                         <Link to='/' className='w-1/8 bg-gray-600 mr-2 pt-1 pb-1 pr-6 pl-6 text-center text-white border-2 hover:bg-gray-200 hover:text-black'>
                             Back to search
