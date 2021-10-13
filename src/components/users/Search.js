@@ -1,7 +1,9 @@
-import React, {useState } from 'react'
+import React, {useState, useContext} from 'react'
+import GithubContext from '../../context/github/githubContext';
 
-const Search = ({searchUsers, clearable, clear, setAlert}) => {
-    
+const Search = ( {setAlert}) => {
+    const githubContext =  useContext(GithubContext)
+
     const[text, setText] = useState('');
 
     const onChange = (e) => {
@@ -13,7 +15,7 @@ const Search = ({searchUsers, clearable, clear, setAlert}) => {
         if (text === ''){
             setAlert('Please enter something', 'gray-100')
         } else{
-            searchUsers(text);
+            githubContext.searchUsers(text);
             setText('');
         }
        
@@ -25,7 +27,7 @@ const Search = ({searchUsers, clearable, clear, setAlert}) => {
                 <input className='border-2 mb-4 mt-4' type="text" name="text" placeholder="Search Users..." value={text} onChange={onChange}></input>
                 <input className='text-white bg-gray-600 mb-2 border-2 p-1 cursor-pointer hover:bg-gray-200 hover:text-black' type="submit" value="Search"></input>
             </form>
-                {clearable && (<button className='text-white bg-gray-600 mb-2 align-middle border-2 p-1 hover:bg-gray-200 hover:text-black' onClick={clear}>Clear</button>)}
+                {githubContext.users.length > 0 && (<button className='text-white bg-gray-600 mb-2 align-middle border-2 p-1 hover:bg-gray-200 hover:text-black' onClick={githubContext.clearUsers}>Clear</button>)}
         </div>
     )
 }
