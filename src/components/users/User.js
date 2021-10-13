@@ -7,7 +7,7 @@ import Repos from '../repos/Repos'
 import GithubContext from '../../context/github/githubContext'
 
 
-const User = ({getRepos, repos, match}) => {
+const User = ({match}) => {
     const githubContext = useContext(GithubContext);
     
     useEffect(() => {
@@ -83,7 +83,7 @@ const User = ({getRepos, repos, match}) => {
                         <div className='badge bg-pink-600 text-white'>Public Repos: {public_repos}</div>    
                         <div className='badge bg-gray-700 text-white'>Public Gists: {public_gists}</div>                                             
                     </div>
-                    <Repos repos={repos}/>
+                    <Repos/>
                 </div>
            </Fragment>
         

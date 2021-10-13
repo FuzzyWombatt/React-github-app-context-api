@@ -1,60 +1,33 @@
-import React, {useState, Fragment} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
-import Users from './components/users/Users'
-import Search from './components/users/Search'
 import Alert from './components/layout/Alert';
+import Home from './components/pages/Home';
 import About from './components/pages/About';
 import User from './components/users/User';
+
 import GithubState from './context/github/GithubState';
+import AlertState from './context/alert/AlertState';
 
 
-const App = () =>{
-    const [alert, setAlert] = useState(null);
-
-   /* useEffect(async () => {
-        setLoading(true);
-
-        const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-
-        setUsers(res.data);
-        setLoading(false);
-    }, [])
-    */
-
-    
-    const sAlert = (msg, type) => {
-        setAlert({msg, type});
-        setTimeout(() => setAlert(null), 1000);
-    }
-
+const App = () =>{  
     return(
         <GithubState>
+        <AlertState>
             <Router>
-                <div className='font-roboto'>
-                    <div>
-                        <Navbar />
-                        <div className='flex flex-col'>
-                            <Alert alert={alert}/>
-                            <Switch>
-                                <Route exact path='/' render={props => (
-                                    <Fragment>
-                                        <Search 
-                                            setAlert={sAlert}/>
-                                        <Users/>    
-                                    </Fragment>
-                                )}/>
-                                <Route exact path='/about' component={About}/>
-                                <Route exact path='/user/:login' render={() => <User/>} />
-                            </Switch> 
-                        </div>
+                    <Navbar/>
+                    <div className='flex flex-col'>
+                        <Alert/>
+                        <Switch>
+                            <Route exact path='/' component={Home}/>
+                            <Route exact path='/about' component={About}/>
+                            <Route exact path='/user/:login' component={User} />
+                        </Switch> 
                     </div>
-                </div>
             </Router>
+        </AlertState>
         </GithubState>
     );
 }
-
-
 
 export default App; 
