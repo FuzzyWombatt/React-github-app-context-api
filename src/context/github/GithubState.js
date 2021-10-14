@@ -1,8 +1,8 @@
-import React,{useReducer} from 'react'
+import React,{useReducer, useState, useEffect} from 'react'
 import axios from 'axios'
 import GithubContext from './githubContext'
 import GithubReducer from './githubReducer'
-import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS } from '../types'
+import { SEARCH_USERS, SET_LOADING, CLEAR_USERS, GET_USER, GET_REPOS, SET_USERS } from '../types'
 //global App level State
 const GithubState = (props) => {
     const initialState = {
@@ -13,6 +13,22 @@ const GithubState = (props) => {
     }
 
     const[state, dispatch] = useReducer(GithubReducer, initialState);
+    const[initialUsers, setInitial] = useState([]);
+
+    //setup initial 30 users for when App is refreshed or intially started
+    const getInitial = async () => {
+        const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+        setInitial(res.data);
+    }
+
+    const setUsers = (users) => {
+        dispatch({type:SET_USERS, payload: users});
+    }
+    //keep dependency empty to launch only once. If initialUsers is put in as a dependency it could launch as a conditional
+    useEffect(() => {
+        getInitial();
+        setUsers(initialUsers);
+    }, [])
 
     //search user
     const searchUsers = async (text) => {
