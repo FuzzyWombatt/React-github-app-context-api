@@ -1,5 +1,5 @@
 # Example Preview Deployed on Netifly is Avaliable Below
-rag2753-github-app.netlify.app
+https://rag2753-github-app.netlify.app
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
